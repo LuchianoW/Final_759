@@ -2,7 +2,6 @@ services:
   - type: web
     name: f759
     env: ruby
-    plan: free
     buildCommand: bundle install
     startCommand: bundle exec rails server
     envVars:
@@ -12,5 +11,6 @@ services:
           property: connectionString
       - key: RAILS_MASTER_KEY
         sync: false
-databases:
-  - name: f759-db
+    preDeployCommand: |
+      bundle exec rails db:migrate
+      bundle exec rails db:seed
