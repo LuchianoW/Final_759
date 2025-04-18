@@ -1,0 +1,23 @@
+<h1>所有帖子</h1>
+
+<nav>
+  <%= link_to '我的账户', profile_path %> |
+  <%= link_to '退出登录', destroy_user_session_path, method: :delete, data: { turbo_method: :delete } %>
+</nav>
+
+<%= link_to '发布新帖', new_post_path %>
+
+<hr />
+
+<% @posts.each do |post| %>
+  <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
+    <p><strong><%= post.user.username %>:</strong></p>
+    <p><%= post.content %></p>
+    <% if post.image.attached? %>
+      <%= image_tag post.image, width: 200 %>
+    <% end %>
+  </div>
+
+  <%= link_to 'View Detail', post_path(post), data: { turbo: false } %>
+<% end %>
+

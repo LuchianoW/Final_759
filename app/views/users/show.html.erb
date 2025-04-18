@@ -1,0 +1,21 @@
+<h2>
+  <% if @user == current_user %>
+    Welcome, <%= @user.username %>!
+  <% else %>
+    <%= @user.username %> 的主页
+  <% end %>
+</h2>
+
+<p><strong>Email:</strong> <%= @user.email %></p>
+
+<% if @user.avatar.attached? %>
+  <p><strong>Avatar:</strong></p>
+  <%= image_tag @user.avatar, width: 150, height: 150 %>
+<% end %>
+
+<% if @user == current_user %>
+  <%= link_to '退出登录', destroy_user_session_path, method: :delete, data: { turbo_method: :delete } %>
+<% end %>
+
+<br><br>
+<%= link_to '返回帖子', posts_path %>
